@@ -1,7 +1,7 @@
 #Test Commit Comments
 
 import pyttsx3
-import pywin32_system32
+#import pywin32_system32
 import datetime
 import speech_recognition as sr
 import wikipedia
@@ -15,6 +15,10 @@ engine = pyttsx3.init()
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
+
+def speakPrint(saying): # Function that was used to abstract the print and speak duplications
+    print(saying)
+    speak(saying)
 
 def time():
     Time = datetime.datetime.now().strftime("%I:%M:%S")
@@ -33,24 +37,19 @@ def date():
     print("The current date is " + str(day) + "/" + str(month) + "/" + str(year))
 
 def wishme():
-    print("Welcome back sir!!")
-    speak("Welcome back sir!!")
+    speakPrint("Welcome Back Sir!!")
     
     hour = datetime.datetime.now().hour
     if hour >= 4 and hour < 12:
-        speak("Good Morning Sir!!")
-        print("Good Morning Sir!!")
+        speakPrint("Good Morning Sir!!")
     elif hour >= 12 and hour < 16:
-        speak("Good Afternoon Sir!!")
-        print("Good Afternoon Sir!!")
+        speakPrint("Good Afternoon Sir!!")
     elif hour >= 16 and hour < 24:
-        speak("Good Evening Sir!!")
-        print("Good Evening Sir!!")
+        speakPrint("Good Evening Sir!!")
     else:
         speak("Good Night Sir, See You Tommorrow")
 
-    speak("Jarvis at your service sir, please tell me how may I help you.")
-    print("Jarvis at your service sir, please tell me how may I help you.")
+    speakPrint("Jarvis at your service sir, please tell me how may I help you. ")
 
 def screenshot():
     img = pyautogui.screenshot()
@@ -88,28 +87,23 @@ if __name__ == "__main__":
             date()
 
         elif "who are you" in query:
-            speak("I'm JARVIS created by Mr. Kishan and I'm a desktop voice assistant.")
-            print("I'm JARVIS created by Mr. Kishan and I'm a desktop voice assistant.")
+            speakPrint("I'm JARVIS created by Mr. Kishan and I'm a desktop voice assistant.")
 
         elif "how are you" in query:
-            speak("I'm fine sir, What about you?")
-            print("I'm fine sir, What about you?")
+            speakPrint("I'm fine sir, What about you?")
 
         elif "fine" in query:
-            speak("Glad to hear that sir!!")
-            print("Glad to hear that sir!!")
+            speakPrint("Glad to hear that sir!!")
 
         elif "good" in query:
-            speak("Glad to hear that sir!!")
-            print("Glad to hear that sir!!")
+            speakPrint("Glad to hear that sir!!")
 
         elif "wikipedia" in query:
             try:
                 speak("Ok wait sir, I'm searching...")
                 query = query.replace("wikipedia","")
                 result = wikipedia.summary(query, sentences=2)
-                print(result)
-                speak(result)
+                speakPrint(result)
             except:
                 speak("Can't find this page sir, please ask something else")
         
@@ -136,38 +130,31 @@ if __name__ == "__main__":
 
         elif "search on chrome" in query:
             try:
-                speak("What should I search?")
-                print("What should I search?")
+                speakPrint("What should I search?")
                 chromePath = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
                 search = takecommand()
                 wb.get(chromePath).open_new_tab(search)
                 print(search)
 
             except Exception as e:
-                speak("Can't open now, please try again later.")
-                print("Can't open now, please try again later.")
+                speakPrint("Can't open now, please try again later.")
             
         
         elif "remember that" in query:
             speak("What should I remember")
             data = takecommand()
-            speak("You said me to remember that" + data)
-            print("You said me to remember that " + str(data))
+            speakPrint("You said me to remember that " + str(data))
             remember = open("data.txt", "w")
             remember.write(data)
             remember.close()
 
         elif "do you remember anything" in query:
             remember = open("data.txt", "r")
-            speak("You told me to remember that" + remember.read())
-            print("You told me to remember that " + str(remember))
+            speakPrint("You told me to remember that " + str(remember))
 
         elif "screenshot" in query:
             screenshot()
             speak("I've taken screenshot, please check it")
 
-
         elif "offline" in query:
             quit()
-
-
