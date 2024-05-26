@@ -14,7 +14,7 @@ def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
-def speakPrint(saying):
+def speakPrint(saying): # Function that was used to abstract the print and speak duplications
     print(saying)
     speak(saying)
 
@@ -34,7 +34,6 @@ def date():
     speak(year)
     print("The current date is " + str(day) + "/" + str(month) + "/" + str(year))
 
-# Can functionally abstract away the speak and print statements into one single call function
 def wishme():
     speakPrint("Welcome Back Sir!!")
     
