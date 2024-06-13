@@ -10,109 +10,104 @@ import os
 import random
 import pyautogui
 
-engine = pyttsx3.init()
+class VoiceAssistant:
+    def __init__(self, name = "Jarvis"):
+        self.engine = pyttsx3.init()
+        self.name = name
 
-def speak(audio):
-    engine.say(audio)
-    engine.runAndWait()
+    def speak(self, audio):
+        self.engine.say(audio)
+        self.engine.runAndWait()
 
-def speakPrint(saying): # Function that was used to abstract the print and speak duplications
-    print(saying)
-    speak(saying)
+    def speakPrint(self, saying):
+        print(saying)
+        self.speak(saying)
 
-def time():
-    Time = datetime.datetime.now().strftime("%I:%M:%S")
-    speak("the current time is")
-    speak(Time)
-    print("The current time is ", Time)
+    def getTime(self):
+        Time = datetime.datetime.now().strftime("%I:%M:%S")
+        self.speakPrint("The current time is: " + Time)
 
-def date():
-    day = int(datetime.datetime.now().day)
-    month = int(datetime.datetime.now().month)
-    year = int(datetime.datetime.now().year)
-    speak("the current date is")
-    speak(day)
-    speak(month)
-    speak(year)
-    print("The current date is " + str(day) + "/" + str(month) + "/" + str(year))
+    def getDate(self): 
+        day = int(datetime.datetime.now().day)
+        month = int(datetime.datetime.now().month)
+        year = int(datetime.datetime.now().year)
+        dateString = f"{day}/{month}/{year}"
+        self.speakPrint("Todays date is: " + dateString)
 
-def wishme():
-    speakPrint("Welcome Back Sir!!")
-    
-    hour = datetime.datetime.now().hour
-    if hour >= 4 and hour < 12:
-        speakPrint("Good Morning Sir!!")
-    elif hour >= 12 and hour < 16:
-        speakPrint("Good Afternoon Sir!!")
-    elif hour >= 16 and hour < 24:
-        speakPrint("Good Evening Sir!!")
-    else:
-        speak("Good Night Sir, See You Tommorrow")
+    def wishMe(self):
+        self.speakPrint("Welcome Back Sir!!")
+        
+        hour = datetime.datetime.now().hour
+        if hour >= 4 and hour < 12:
+            self.speakPrint("Good Morning Sir!!")
+        elif hour >= 12 and hour < 16:
+            self.speakPrint("Good Afternoon Sir!!")
+        elif hour >= 16 and hour < 24:
+            self.speakPrint("Good Evening Sir!!")
+        else:
+            self.speak("Good Night Sir, See You Tommorrow")
 
-    speakPrint("Jarvis at your service sir, please tell me how may I help you. ")
+        self.speakPrint(f"{self.name} at your service sir, please tell me how may I help you. ")
 
-def screenshot():
-    img = pyautogui.screenshot()
-    img_path = os.path.expanduser("~\\Pictures\\ss.png")
-    img.save(img_path)
+    def screenshot(self):
+        img = pyautogui.screenshot()
+        img_path = os.path.expanduser("~\\Pictures\\JarvisSS.png")
+        img.save(img_path)
 
 
-def takecommand():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Listening...")
-        r.pause_threshold = 1
-        audio = r.listen(source)
+    def takeCommand(self):
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("Listening...")
+            r.pause_threshold = 1
+            audio = r.listen(source)
 
-    try:
-        print("Recognizing...")
-        query = r.recognize_google(audio, language="en-in")
-        print(query)
+        try:
+            print("Recognizing...")
+            query = r.recognize_google(audio, language="en-in")
+            print(query)
 
-    except Exception as e:
-        print(e)
-        speak("Please say that again")
-        return "Try Again"
+        except Exception as e:
+            print(e)
+            self.speak("Please say that again")
+            return "Try Again"
 
-    return query
+        return query
 
-if __name__ == "__main__":
-    wishme()
-    while True:
-        query = takecommand().lower()
+    def handleCommand(self, query):
         if "time" in query:
-            time()
+            self.getTime()
 
         elif "date" in query:
-            date()
+            self.getDate()
 
         elif "who are you" in query:
-            speakPrint("I'm JARVIS created by Mr. Kishan and I'm a desktop voice assistant.")
+            self.speakPrint("I'm JARVIS created by Mr. Kishan and I'm a desktop voice assistant.")
 
         elif "how are you" in query:
-            speakPrint("I'm fine sir, What about you?")
+            self.speakPrint("I'm fine sir, What about you?")
 
         elif "fine" in query:
-            speakPrint("Glad to hear that sir!!")
+            self.speakPrint("Glad to hear that sir!!")
 
         elif "good" in query:
-            speakPrint("Glad to hear that sir!!")
+            self.speakPrint("Glad to hear that sir!!")
 
         elif "wikipedia" in query:
             try:
-                speak("Ok wait sir, I'm searching...")
+                self.speak("Ok wait sir, I'm searching...")
                 query = query.replace("wikipedia","")
                 result = wikipedia.summary(query, sentences=2)
-                speakPrint(result)
+                self.speakPrint(result)
             except:
-                speak("Can't find this page sir, please ask something else")
+                self.speak("Can't find this page sir, please ask something else")
         
         elif "open youtube" in query:
             wb.open("youtube.com") 
 
         elif "open google" in query:
             wb.open("google.com") 
-   
+
         elif "open stack overflow" in query:
             wb.open("stackoverflow.com")
 
@@ -120,9 +115,11 @@ if __name__ == "__main__":
             song_dir = os.path.expanduser("~\\Music")
             songs = os.listdir(song_dir)
             print(songs)
-            x = len(songs)
-            y = random.randint(0,x)
-            os.startfile(os.path.join(song_dir, songs[y]))
+            if songs:
+                song = random.choice(songs)
+                os.startfile(os.path.join(song_dir, song))
+            else:
+                self.speakPrint("No sounds could be found.")
 
         elif "open chrome" in query:
             chromePath = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
@@ -130,31 +127,42 @@ if __name__ == "__main__":
 
         elif "search on chrome" in query:
             try:
-                speakPrint("What should I search?")
+                self.speakPrint("What should I search?")
                 chromePath = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-                search = takecommand()
+                search = self.takeCommand()
                 wb.get(chromePath).open_new_tab(search)
                 print(search)
 
             except Exception as e:
-                speakPrint("Can't open now, please try again later.")
+                self.speakPrint("Can't open now, please try again later.")
             
         
         elif "remember that" in query:
-            speak("What should I remember")
-            data = takecommand()
-            speakPrint("You said me to remember that " + str(data))
+            self.speak("What should I remember")
+            data = self.takeCommand()
+            self.speakPrint("You said me to remember that " + str(data))
             remember = open("data.txt", "w")
             remember.write(data)
             remember.close()
-
+    
         elif "do you remember anything" in query:
-            remember = open("data.txt", "r")
-            speakPrint("You told me to remember that " + str(remember))
+            try:
+                with open("data.txt", "r") as remember_file:
+                    data = remember_file.read()
+                self.speakPrint("You told me to remember that " + data)
+            except FileNotFoundError:
+                self.speakPrint("You have not yet asked me to remember anything, please do so first.")
 
         elif "screenshot" in query:
-            screenshot()
-            speak("I've taken screenshot, please check it")
+            self.screenshot()
 
         elif "offline" in query:
+            self.speakPrint("Going Offline, Sir. Goodbye!")
             quit()
+
+if __name__ == "__main__":
+    assistant = VoiceAssistant()
+    assistant.wishMe()
+    while True:
+        command = assistant.takeCommand()
+        assistant.handleCommand(command)
