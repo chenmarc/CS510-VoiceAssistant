@@ -27,11 +27,11 @@ branch before continuing. Stage, commit, and push changes as desired.
 
 📌 Code Structure:
 
-The project is currently limited one VoiceAssistant class
+The project is currently limited to one VoiceAssistant class
 with the intention that a future contributor could make a similar 
 assistant(s) with more or different functionality. This can be achieved
-by creating a derived class from the existing VoiceAssistant class.To extend 
-the functionality of the existing VoiceAssistant class, one can 
+by creating a derived class from the existing VoiceAssistant class. 
+To extend the functionality of the existing VoiceAssistant class, one can 
 add a public method (similar to speak, SpeakPrint, or getTime).
 
 Within any new functions that you decide to implement be sure to embed 
