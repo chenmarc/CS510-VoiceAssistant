@@ -1,19 +1,45 @@
-
 Welcome to the Voice Assistant First Time Contributors Guide!
 
+📌 Understanding the Project:
 
-Getting Started:
+Visit the README.md file to get an idea of what Jarvis the voice assistant
+is currently able to perform. It is recommended that you visit the .py files
+and take careful notes on the current hierarchy and public methods of VoiceAssistant.
+
+
+📌 Setting up Your Environment / Getting the Code:
 
 Once on your preferred development platform (e.g. Github, Gitlab), fork 
 the repository. Clone the repository and ensure that your'e in the correct
 branch before continuing. Stage, commit, and push changes as desired.
 
-    Import Requirements: 
+
+📌 Requirements:
+- Install **PyAudio** from wheel file by following instructions given **[here](https://stackoverflow.com/questions/52283840/i-cant-install-pyaudio-on-windows-how-to-solve-error-microsoft-visual-c-14)**
+- Run the python script named as ```jarvis.py``` which is in Jarvis Directory.
+- Import and install the following requirements: 
     1. Pyttsx3 (windows only!)
     2. Speech Rrecognition
     3. Wikipedia
     4. Webbrowser
     5. Pyautogui
+
+
+📌 Code Structure:
+
+The project is currently limited one VoiceAssistant class
+with the intention that a future contributor could make a similar 
+assistant(s) with more or different functionality. This can be achieved
+by creating a derived class from the existing VoiceAssistant class.To extend 
+the functionality of the existing VoiceAssistant class, one can 
+add a public method (similar to speak, SpeakPrint, or getTime).
+
+Within any new functions that you decide to implement be sure to embed 
+exception handling as it currently exists (such as in the takeCommand function).
+This will involve placing try blocks and throwing queries if invalid input etc. occurs.
+
+
+📌 Ways to Contribute:
 
 In general there are two steps to creating new functionality for the
 Voice Assistant. You will need to implement a function to get the 
@@ -22,4 +48,25 @@ and then call speakPrint on that data.
 
 To extend functionality further, one can implement functions to perform 
 operations on data retrieved from the web, having the Voice Assistant 
+provide the result of operations on multiple pieces of data.
+
+Feel free to get creative with how you extend Jarvis!
+This could include anything from improving the voice recognition 
+to adding new commands that the assistant can understand.
+
+
+📌 Finalizing Contributions:
+
+After you're done with your changes, commit to your branch.
+Following this, you can submit a Pull request to the original Author.
+(The original Author is open to the idea of adding your changes!)
+
+
+📌Author
+
+👤 **Kishan Kumar Rai**
+- Twitter: [@kishan_rajput23](https://twitter.com/kishan_rajput23)
+- Github: [@kishanrajput23](https://github.com/kishanrajput23)
+- LinkedIn: [@kishan-kumar-rai](https://linkedin.com/in/kishan-kumar-rai-23112000)
+
 
