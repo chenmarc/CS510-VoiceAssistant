@@ -15,9 +15,11 @@ branch before continuing. Stage, commit, and push changes as desired.
 
 
 📌 Requirements:
-- Install **PyAudio** from wheel file by following instructions given **[here](https://stackoverflow.com/questions/52283840/i-cant-install-pyaudio-on-windows-how-to-solve-error-microsoft-visual-c-14)**
-- Run the python script named as ```jarvis.py``` which is in Jarvis Directory.
-- Import and install the following requirements: 
+Install **PyAudio** from wheel file by following instructions given **[here](https://stackoverflow.com/questions/52283840/i-cant-install-pyaudio-on-windows-how-to-solve-error-microsoft-visual-c-14)**
+
+Run the python script named as ```jarvis.py``` which is in Jarvis Directory.
+
+Import and install the following requirements: 
     1. Pyttsx3 (windows only!)
     2. Speech Rrecognition
     3. Wikipedia
@@ -27,7 +29,7 @@ branch before continuing. Stage, commit, and push changes as desired.
 
 📌 Code Structure:
 
-The project is currently limited to one VoiceAssistant class
+Jarvis is currently limited to one VoiceAssistant class
 with the intention that a future contributor could make a similar 
 assistant(s) with more or different functionality. This can be achieved
 by creating a derived class from the existing VoiceAssistant class. 
